@@ -143,9 +143,13 @@ const Home = () => {
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl md:text-3xl font-bold">Invoice Management</h1>
                 <div>
-                  <Link 
-                    to="/invoices" 
-              
+                  <Link
+                     to="/invoices"
+                     className="button-secondary"
+                  >
+                    View All Invoices</Link>
+               </div>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <Link to="/invoices" className="card p-6 hover:shadow-soft transition-shadow">
                   <h3 className="text-lg font-semibold mb-2">Manage Invoices</h3>

@@ -246,7 +246,7 @@ const InvoiceForm = () => {
           <div className={`p-6 ${templateBg}`} style={headerBgStyle}>
             <div className="flex justify-between items-start mb-6">
               <div>
-                <p className='text-white/80'>
+                <p className="text-white/80">
                   {formData.companyAddress || '123 Business Street, City, Country'}
                 </p>
               <div className="w-16 h-16 bg-white/20 rounded flex items-center justify-center overflow-hidden">
@@ -257,6 +257,7 @@ const InvoiceForm = () => {
                 ) : (
                   <ImageIcon size={24} className='text-white/60' />
                 )}
+              </div>
               </div>
             </div>
             <h1 className={`text-2xl font-bold ${headerStyle}`}>INVOICE</h1>

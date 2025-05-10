@@ -248,7 +248,9 @@ const InvoiceForm = () => {
     const isMinimal = formData.templateStyle === 'minimal';
     
     // Define template specific styles
-    let templateBg, headerBgStyle = {};
+    let templateBg = '';
+    let headerBgStyle = {};
+    let headerStyle = '';
     
     if (isModern) {
       templateBg = 'bg-gradient-to-r from-primary to-primary-dark text-white';
@@ -261,10 +263,6 @@ const InvoiceForm = () => {
       templateBg = 'bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-600';
       headerStyle = 'text-surface-800 dark:text-surface-200';
     }
-
-    const headerStyle = isModern
-      ? 'text-white'
-      : 'text-surface-800 dark:text-surface-200';
     
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowTemplatePreview(false)}>

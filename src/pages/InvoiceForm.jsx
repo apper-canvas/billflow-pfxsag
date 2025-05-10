@@ -247,7 +247,6 @@ const InvoiceForm = () => {
             <div className="flex justify-between items-start mb-6">
               <div>
                 <p className='text-white/80'>
-                <p className={isModern ? 'text-white/80' : 'text-surface-600 dark:text-surface-400'}>
                   {formData.companyAddress || '123 Business Street, City, Country'}
                 </p>
               </div>

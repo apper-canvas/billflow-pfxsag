@@ -74,12 +74,6 @@ const Home = () => {
                 <PlusIcon size={18} />
                 <span>New Invoice</span>
               </Link>
-              <button
-                onClick={handleCreateInvoice}
-                className="flex items-center justify-center gap-2 w-full py-3 px-4 mt-3 bg-surface-200 dark:bg-surface-700 hover:bg-surface-300 dark:hover:bg-surface-600 text-surface-800 dark:text-surface-200 rounded-lg font-medium transition-colors"
-              >
-                <span>Create Invoice</span>
-              </button>
             </div>
           </div>
         </div>

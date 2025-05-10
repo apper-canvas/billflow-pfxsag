@@ -20,10 +20,10 @@ const Home = () => {
     { id: 'dashboard', name: 'Dashboard', icon: DashboardIcon },
     { id: 'clients', name: 'Clients', icon: ClientsIcon },
     { id: 'invoices', name: 'Invoices', icon: InvoicesIcon },
-    { id: 'settings', name: 'Settings', icon: SettingsIcon },
-  ];
     { id: 'recurring', name: 'Recurring', icon: ClockIcon },
     { id: 'reminders', name: 'Reminders', icon: BellIcon },
+    { id: 'settings', name: 'Settings', icon: SettingsIcon },
+  ];
   
   // Sample data for dashboard
   const stats = [

@@ -20,6 +20,7 @@ const MainFeature = () => {
   const SendIcon = getIcon('Send');
   const DollarIcon = getIcon('DollarSign');
   const GlobeIcon = getIcon('Globe');
+  const ImageIcon = getIcon('Image');
   
   // State for the invoice creation form
   const [formData, setFormData] = useState({
@@ -32,7 +33,9 @@ const MainFeature = () => {
     taxRate: 0,
     currency: 'USD',
     isRecurring: false,
-    reminderEnabled: false
+    reminderEnabled: false,
+    templateStyle: 'modern',
+    companyLogo: ''
   });
   
   // Validation state
@@ -160,6 +163,7 @@ const MainFeature = () => {
       animate={{ opacity: 1, y: 0 }}
       className="mb-10"
     >
+      {/* Header Section */}
       <div className="flex flex-col md:flex-row items-start justify-between mb-6">
         <div>
           <h2 className="text-xl md:text-2xl font-bold mb-2 flex items-center gap-2">
@@ -177,6 +181,9 @@ const MainFeature = () => {
               <SendIcon size={14} className="mr-1" /> Send Invoices
             </Link>
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
+              <ImageIcon size={14} className="mr-1" /> Customizable Templates
+            </span>
               <GlobeIcon size={14} className="mr-1" /> Multiple Currencies
             </span>
           </div>
@@ -186,6 +193,51 @@ const MainFeature = () => {
           </p>
         </div>
       </div>
+      {/* Template Preview Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div 
+          className={`card p-4 cursor-pointer transition-all ${formData.templateStyle === 'modern' ? 'ring-2 ring-primary' : 'hover:bg-surface-50 dark:hover:bg-surface-700/50'}`}
+          onClick={() => setFormData({...formData, templateStyle: 'modern'})}
+        >
+          <div className="h-32 bg-gradient-to-r from-primary to-primary-dark rounded-lg mb-3 flex items-center justify-center text-white">
+            <span className="font-bold">Modern Template</span>
+          </div>
+          <div className="flex items-center gap-2">
+            {formData.templateStyle === 'modern' && <CheckIcon className="text-primary" size={16} />}
+            <h4 className="font-medium text-sm">Modern</h4>
+          </div>
+          <p className="text-surface-500 text-sm mt-1">Clean, professional template with a modern color scheme</p>
+        </div>
+        
+        <div 
+          className={`card p-4 cursor-pointer transition-all ${formData.templateStyle === 'classic' ? 'ring-2 ring-primary' : 'hover:bg-surface-50 dark:hover:bg-surface-700/50'}`}
+          onClick={() => setFormData({...formData, templateStyle: 'classic'})}
+        >
+          <div className="h-32 bg-surface-100 dark:bg-surface-700 rounded-lg mb-3 flex items-center justify-center border border-surface-200 dark:border-surface-600">
+            <span className="font-bold text-surface-800 dark:text-surface-200">Classic Template</span>
+          </div>
+          <div className="flex items-center gap-2">
+            {formData.templateStyle === 'classic' && <CheckIcon className="text-primary" size={16} />}
+            <h4 className="font-medium text-sm">Classic</h4>
+          </div>
+          <p className="text-surface-500 text-sm mt-1">Traditional invoice layout with a timeless design</p>
+        </div>
+        
+        <div 
+          className={`card p-4 cursor-pointer transition-all ${formData.templateStyle === 'minimal' ? 'ring-2 ring-primary' : 'hover:bg-surface-50 dark:hover:bg-surface-700/50'}`}
+          onClick={() => setFormData({...formData, templateStyle: 'minimal'})}
+        >
+          <div className="h-32 bg-white dark:bg-surface-800 rounded-lg mb-3 flex items-center justify-center border border-surface-200 dark:border-surface-600">
+            <span className="font-bold text-surface-800 dark:text-surface-200">Minimal Template</span>
+          </div>
+          <div className="flex items-center gap-2">
+            {formData.templateStyle === 'minimal' && <CheckIcon className="text-primary" size={16} />}
+            <h4 className="font-medium text-sm">Minimal</h4>
+          </div>
+          <p className="text-surface-500 text-sm mt-1">Sleek, minimalist design that focuses on essential information</p>
+        </div>
+      </div>
+      
       
       <div className="card overflow-visible">
         <div className="p-6 border-b border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800 rounded-t-xl">
@@ -306,6 +358,32 @@ const MainFeature = () => {
           
           {/* Additional options */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+              <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
+                Company Logo
+              </label>
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <input
+                    type="file"
+                    id="company-logo"
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                    accept="image/*"
+                    onChange={() => toast.info("Logo upload feature will be available in full version")}
+                  />
+                  <button
+                    type="button"
+                    className="button-secondary py-2 flex items-center gap-2"
+                  >
+                    <ImageIcon size={16} />
+                    <span>Upload Logo</span>
+                  </button>
+                </div>
+                {formData.companyLogo && <span className="text-sm text-surface-600">Logo uploaded</span>}
+              </div>
+            </div>
+            
+            {/* Recurring Invoice Option */}
             {/* Recurring Invoice Option */}
             <div className="flex items-center space-x-2">
               <input

@@ -23,6 +23,7 @@ const InvoiceForm = () => {
   const CheckIcon = getIcon('Check');
   const CalendarIcon = getIcon('Calendar');
   const GlobeIcon = getIcon('Globe');
+  const ImageIcon = getIcon('Image');
   
   // Define available currencies
   const currencies = [
@@ -52,6 +53,13 @@ const InvoiceForm = () => {
     { days: 0, label: 'On due date' },
   ];
   
+  // Define template styles
+  const templateStyles = [
+    { id: 'modern', name: 'Modern', description: 'Clean, professional template with a modern color scheme' },
+    { id: 'classic', name: 'Classic', description: 'Traditional invoice layout with a timeless design' },
+    { id: 'minimal', name: 'Minimal', description: 'Sleek, minimalist design that focuses on essential information' }
+  ];
+  
   // Form state
   const [formData, setFormData] = useState({
     clientName: '',
@@ -68,6 +76,14 @@ const InvoiceForm = () => {
     recurringFrequency: 'monthly',
     recurringEndDate: add(new Date(), { months: 12 }).toISOString().split('T')[0],
     reminders: [7], // Default to 7 days before due date
+    
+    // Template customization
+    templateStyle: 'modern',
+    companyName: '',
+    companyLogo: '',
+    companyAddress: '',
+    accentColor: '#6366f1', // Default to primary color
+    showSignature: false
   });
   
   // Validation state
@@ -75,6 +91,7 @@ const InvoiceForm = () => {
   
   // Track which section is expanded
   const [expandedSection, setExpandedSection] = useState(null);
+  const [showTemplatePreview, setShowTemplatePreview] = useState(false);
   
   // Calculate totals
   const [totals, setTotals] = useState({
@@ -224,6 +241,48 @@ const InvoiceForm = () => {
     return currency ? currency.symbol : '$';
   };
   
+  // Template preview component
+  const TemplatePreview = () => {
+    const isModern = formData.templateStyle === 'modern';
+    const isClassic = formData.templateStyle === 'classic';
+    const isMinimal = formData.templateStyle === 'minimal';
+    
+    const templateBg = isModern 
+      ? 'bg-gradient-to-r from-primary to-primary-dark text-white'
+      : isClassic 
+        ? 'bg-surface-100 dark:bg-surface-700 border border-surface-200 dark:border-surface-600'
+        : 'bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-600';
+    
+    const headerStyle = isModern
+      ? 'text-white'
+      : 'text-surface-800 dark:text-surface-200';
+    
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowTemplatePreview(false)}>
+        <div className="bg-white dark:bg-surface-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>
+          <div className={`p-6 ${templateBg}`}>
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className={`text-xl font-bold ${headerStyle}`}>{formData.companyName || 'Your Company Name'}</h2>
+                <p className={isModern ? 'text-white/80' : 'text-surface-600 dark:text-surface-400'}>
+                  {formData.companyAddress || '123 Business Street, City, Country'}
+                </p>
+              </div>
+              <div className="w-16 h-16 bg-white/20 rounded flex items-center justify-center">
+                {formData.companyLogo ? 'LOGO' : <ImageIcon size={24} className={isModern ? 'text-white/60' : 'text-surface-400'} />}
+              </div>
+            </div>
+            <h1 className={`text-2xl font-bold ${headerStyle}`}>INVOICE</h1>
+          </div>
+          <div className="p-6">
+            <p className="text-center text-surface-600 dark:text-surface-400 mb-6">This is a preview of your selected template style</p>
+            <button className="button-primary w-full" onClick={() => setShowTemplatePreview(false)}>Close Preview</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col space-y-6">
@@ -236,6 +295,10 @@ const InvoiceForm = () => {
             <h1 className="text-2xl md:text-3xl font-bold">{isEditing ? 'Edit Invoice' : 'Create New Invoice'}</h1>
           </div>
         </div>
+        
+        {showTemplatePreview && (
+          <TemplatePreview />
+        )}
         
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -397,6 +460,69 @@ const InvoiceForm = () => {
               
               {/* Expandable Sections */}
               <div className="space-y-4 mb-8">
+            {/* Template Customization */}
+            <div className="border border-surface-200 dark:border-surface-700 rounded-lg overflow-hidden">
+              <button
+                type="button"
+                onClick={() => toggleSection('template')}
+                className="w-full flex items-center justify-between p-4 text-left bg-surface-50 dark:bg-surface-800 hover:bg-surface-100 dark:hover:bg-surface-700"
+              >
+                <div className="flex items-center gap-2">
+                  <ImageIcon size={18} className="text-primary" />
+                  <span className="font-medium">Invoice Template & Branding</span>
+                </div>
+                <span className="text-surface-500">
+                  {expandedSection === 'template' ? '−' : '+'}
+                </span>
+              </button>
+              
+              {expandedSection === 'template' && (
+                <div className="p-4 border-t border-surface-200 dark:border-surface-700">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    {/* Template Style Selection */}
+                    <div>
+                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-3">
+                        Template Style
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {templateStyles.map(template => (
+                          <div 
+                            key={template.id}
+                            onClick={() => setFormData({...formData, templateStyle: template.id})}
+                            className={`cursor-pointer border rounded-lg p-3 text-center ${
+                              formData.templateStyle === template.id 
+                                ? 'border-primary bg-primary/5 dark:bg-primary/10' 
+                                : 'border-surface-200 dark:border-surface-700'
+                            }`}
+                          >
+                            <div className="font-medium text-sm mb-1">{template.name}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-3">
+                        <button 
+                          type="button" 
+                          className="text-primary text-sm"
+                          onClick={() => setShowTemplatePreview(true)}
+                        >
+                          Preview template
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* Company Information */}
+                    <div className="space-y-4">
+                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">
+                        Company Information
+                      </label>
+                      <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="input-field" placeholder="Company Name" />
+                      <textarea name="companyAddress" value={formData.companyAddress} onChange={handleChange} className="input-field min-h-20" placeholder="Company Address"></textarea>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            
                 {/* Recurring Invoice Settings */}
                 <div className="border border-surface-200 dark:border-surface-700 rounded-lg overflow-hidden">
                   <button

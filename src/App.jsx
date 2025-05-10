@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import InvoiceList from './pages/InvoiceList';
@@ -11,6 +12,7 @@ import RecurringInvoices from './pages/RecurringInvoices';
 import getIcon from './utils/iconUtils';
 
 function App() {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedMode = localStorage.getItem('darkMode');
@@ -36,9 +38,16 @@ function App() {
       { icon: darkMode ? "☀️" : "🌙" }
     );
   };
+
+  const handleCreateInvoice = () => {
+    toast.info("Opening invoice creation form");
+    navigate('/invoices/create');
+  };
   
   const SunIcon = getIcon('Sun');
   const MoonIcon = getIcon('Moon');
+  const PlusIcon = getIcon('Plus');
+  const FileTextIcon = getIcon('FileText');
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -92,6 +101,18 @@ function App() {
         pauseOnHover
         theme={darkMode ? "dark" : "light"}
         toastClassName="!bg-white dark:!bg-surface-800 !text-surface-800 dark:!text-surface-100 !shadow-soft"
+      />
+      
+      {/* Floating Action Button for Create Invoice */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={handleCreateInvoice}
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full bg-primary hover:bg-primary-dark text-white shadow-lg font-medium transition-colors"
+        aria-label="Create new invoice"
+      >
+        <PlusIcon size={20} />
+        <span>Create Invoice</span>
       />
     </div>
   );

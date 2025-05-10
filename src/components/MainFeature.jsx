@@ -37,11 +37,6 @@ const MainFeature = () => {
             <ReceiptIcon className="text-primary" size={20} />
             <span>Start Billing Today</span>
           </h2>
-          <div className="flex flex-wrap gap-2 mt-2 mb-4">
-            <Link to="/invoices/create" className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm">
-              <FileTextIcon size={14} className="mr-1" /> Create Invoices
-            </Link>
-            <Link to="/recurring-invoices" className="inline-flex items-center px-3 py-1 rounded-full bg-secondary/10 text-secondary text-sm">
               <ClockIcon size={14} className="mr-1" /> Set Recurring
             </Link>
             <Link to="/invoices" className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
@@ -59,14 +54,6 @@ const MainFeature = () => {
             Create professional invoices for your clients
           </p>
         </div>
-        
-        <Link
-          to="/invoices/create"
-          className="button-primary mt-4 md:mt-0 whitespace-nowrap"
-        >
-          <PlusIcon size={18} className="mr-1" />
-          Create New Invoice
-        </Link>
       </div>
       
       {/* Template Preview Cards */}
@@ -122,11 +109,6 @@ const MainFeature = () => {
         <Link 
           to="/invoices/create" 
           className="button-primary inline-flex items-center justify-center"
-          onClick={() => toast.info(`Creating invoice with ${templateStyle} template`)}
-        >
-          <PlusIcon size={18} className="mr-2" />
-          Create New Invoice
-        </Link>
       </div>
     </motion.div>
   );

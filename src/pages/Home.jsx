@@ -65,16 +65,6 @@ const Home = () => {
                 </button>
               ))}
             </nav>
-            
-            <div className="mt-6 pt-6 border-t border-surface-200 dark:border-surface-700">
-              <Link
-                to="/invoices/create"
-                className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium transition-colors"
-              >
-                <PlusIcon size={18} />
-                <span>New Invoice</span>
-              </Link>
-            </div>
           </div>
         </div>
         

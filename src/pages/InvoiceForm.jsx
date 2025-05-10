@@ -248,7 +248,7 @@ const InvoiceForm = () => {
     const isMinimal = formData.templateStyle === 'minimal';
     
     // Define template specific styles
-    let templateBg, headerStyle, headerBgStyle = {};
+    let templateBg, headerBgStyle = {};
     
     if (isModern) {
       templateBg = 'bg-gradient-to-r from-primary to-primary-dark text-white';

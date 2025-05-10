@@ -37,6 +37,8 @@ const MainFeature = () => {
             <ReceiptIcon className="text-primary" size={20} />
             <span>Start Billing Today</span>
           </h2>
+          <div className="flex flex-wrap gap-2 mb-3">
+            <Link to="/recurring-invoices" className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
               <ClockIcon size={14} className="mr-1" /> Set Recurring
             </Link>
             <Link to="/invoices" className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
@@ -109,6 +111,12 @@ const MainFeature = () => {
         <Link 
           to="/invoices/create" 
           className="button-primary inline-flex items-center justify-center"
+        >
+          <PlusIcon size={18} className="mr-2" />
+          <span>Create New Invoice</span>
+        </Link>
+      </div>
+    </motion.div>
       </div>
     </motion.div>
   );

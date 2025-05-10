@@ -249,6 +249,7 @@ const InvoiceForm = () => {
                 <p className="text-white/80">
                   {formData.companyAddress || '123 Business Street, City, Country'}
                 </p>
+              </div>
               <div className="w-16 h-16 bg-white/20 rounded flex items-center justify-center overflow-hidden">
                 {formData.companyLogo ? (
                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xs font-bold text-surface-800">

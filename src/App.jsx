@@ -4,6 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import InvoiceList from './pages/InvoiceList';
+import InvoiceDetail from './pages/InvoiceDetail';
+import InvoiceForm from './pages/InvoiceForm';
+import RecurringInvoices from './pages/RecurringInvoices';
 import getIcon from './utils/iconUtils';
 
 function App() {
@@ -61,6 +65,10 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/invoices" element={<InvoiceList />} />
+            <Route path="/invoices/:id" element={<InvoiceDetail />} />
+            <Route path="/invoices/create" element={<InvoiceForm />} />
+            <Route path="/recurring-invoices" element={<RecurringInvoices />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>

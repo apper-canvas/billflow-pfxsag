@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import getIcon from '../utils/iconUtils';
 
@@ -15,6 +16,10 @@ const MainFeature = () => {
   const ReceiptIcon = getIcon('Receipt');
   const SaveIcon = getIcon('Save');
   const AlertCircleIcon = getIcon('AlertCircle');
+  const ClockIcon = getIcon('Clock');
+  const SendIcon = getIcon('Send');
+  const DollarIcon = getIcon('DollarSign');
+  const GlobeIcon = getIcon('Globe');
   
   // State for the invoice creation form
   const [formData, setFormData] = useState({
@@ -24,7 +29,10 @@ const MainFeature = () => {
     dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     items: [{ description: '', quantity: 1, rate: 0 }],
     notes: '',
-    taxRate: 0
+    taxRate: 0,
+    currency: 'USD',
+    isRecurring: false,
+    reminderEnabled: false
   });
   
   // Validation state
@@ -155,9 +163,24 @@ const MainFeature = () => {
       <div className="flex flex-col md:flex-row items-start justify-between mb-6">
         <div>
           <h2 className="text-xl md:text-2xl font-bold mb-2 flex items-center gap-2">
-            <ReceiptIcon className="text-primary" size={24} />
-            <span>Invoice Generator</span>
+            <ReceiptIcon className="text-primary" size={20} />
+            <span>Start Billing Today</span>
           </h2>
+          <div className="flex flex-wrap gap-2 mt-2 mb-4">
+            <Link to="/invoices/create" className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm">
+              <FileTextIcon size={14} className="mr-1" /> Create Invoices
+            </Link>
+            <Link to="/recurring-invoices" className="inline-flex items-center px-3 py-1 rounded-full bg-secondary/10 text-secondary text-sm">
+              <ClockIcon size={14} className="mr-1" /> Set Recurring
+            </Link>
+            <Link to="/invoices" className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
+              <SendIcon size={14} className="mr-1" /> Send Invoices
+            </Link>
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-sm">
+              <GlobeIcon size={14} className="mr-1" /> Multiple Currencies
+            </span>
+          </div>
+          
           <p className="text-surface-600 dark:text-surface-400">
             Create professional invoices for your clients
           </p>
@@ -166,11 +189,16 @@ const MainFeature = () => {
       
       <div className="card overflow-visible">
         <div className="p-6 border-b border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800 rounded-t-xl">
-          <h3 className="text-lg font-semibold">Create New Invoice</h3>
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">Create New Invoice</h3>
+            <Link to="/invoices/create" className="button-primary text-sm py-1.5">
+              Advanced Options
+            </Link>
+          </div>
         </div>
         
         <form onSubmit={handleSubmit} className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Client Information */}
             <div>
               <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
@@ -245,6 +273,60 @@ const MainFeature = () => {
                   value={formData.dueDate}
                   onChange={handleChange}
                   className="input-field"
+            
+            {/* Currency Selection */}
+            <div>
+              <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
+                Currency
+              </label>
+              <div className="relative">
+                <select
+                  name="currency"
+                  value={formData.currency}
+                  onChange={handleChange}
+                  className="input-field appearance-none pr-10"
+                >
+                  <option value="USD">USD - US Dollar</option>
+                  <option value="EUR">EUR - Euro</option>
+                  <option value="GBP">GBP - British Pound</option>
+                  <option value="CAD">CAD - Canadian Dollar</option>
+                  <option value="AUD">AUD - Australian Dollar</option>
+                  <option value="JPY">JPY - Japanese Yen</option>
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-surface-500">
+                  <DollarIcon size={16} />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Additional options */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {/* Recurring Invoice Option */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="isRecurring"
+                name="isRecurring"
+                checked={formData.isRecurring}
+                onChange={(e) => setFormData({...formData, isRecurring: e.target.checked})}
+                className="h-4 w-4 rounded border-surface-300 text-primary focus:ring-primary"
+              />
+              <label htmlFor="isRecurring" className="text-surface-700 dark:text-surface-300">Make this a recurring invoice</label>
+            </div>
+            
+            {/* Payment Reminder Option */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="reminderEnabled"
+                name="reminderEnabled"
+                checked={formData.reminderEnabled}
+                onChange={(e) => setFormData({...formData, reminderEnabled: e.target.checked})}
+                className="h-4 w-4 rounded border-surface-300 text-primary focus:ring-primary"
+              />
+              <label htmlFor="reminderEnabled" className="text-surface-700 dark:text-surface-300">Enable payment reminders</label>
+            </div>
                 />
               </div>
             </div>
@@ -400,10 +482,15 @@ const MainFeature = () => {
             >
               Save as Draft
             </button>
+            <Link
+              to="/invoices/create"
+              className="button-secondary order-2 sm:order-1"
+            >
+              Advanced Options
+            </Link>
             <motion.button
               type="submit"
               className="button-primary order-1 sm:order-2 py-3"
-              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <SaveIcon size={18} className="mr-2" />

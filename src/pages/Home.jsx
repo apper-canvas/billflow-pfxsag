@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MainFeature from '../components/MainFeature';
 import getIcon from '../utils/iconUtils';
@@ -11,7 +12,9 @@ const Home = () => {
   const ClientsIcon = getIcon('Users');
   const InvoicesIcon = getIcon('FileText');
   const SettingsIcon = getIcon('Settings');
+  const ClockIcon = getIcon('Clock');
   const PlusIcon = getIcon('Plus');
+  const BellIcon = getIcon('Bell');
   
   const tabs = [
     { id: 'dashboard', name: 'Dashboard', icon: DashboardIcon },
@@ -19,11 +22,14 @@ const Home = () => {
     { id: 'invoices', name: 'Invoices', icon: InvoicesIcon },
     { id: 'settings', name: 'Settings', icon: SettingsIcon },
   ];
+    { id: 'recurring', name: 'Recurring', icon: ClockIcon },
+    { id: 'reminders', name: 'Reminders', icon: BellIcon },
   
   // Sample data for dashboard
   const stats = [
     { name: 'Outstanding Invoices', value: '$12,480.00', change: '+8.2%', trend: 'up' },
     { name: 'Clients', value: '24', change: '+2', trend: 'up' },
+    { name: 'Invoices Due This Week', value: '5', change: '+2', trend: 'up' },
     { name: 'Revenue (MTD)', value: '$28,950.00', change: '+14.5%', trend: 'up' },
     { name: 'Avg. Payment Time', value: '12 days', change: '-3 days', trend: 'down' },
   ];
@@ -59,11 +65,17 @@ const Home = () => {
             </nav>
             
             <div className="mt-6 pt-6 border-t border-surface-200 dark:border-surface-700">
-              <button
-                onClick={handleCreateInvoice}
+              <Link
+                to="/invoices/create"
                 className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium transition-colors"
               >
                 <PlusIcon size={18} />
+                <span>New Invoice</span>
+              </Link>
+              <button
+                onClick={handleCreateInvoice}
+                className="flex items-center justify-center gap-2 w-full py-3 px-4 mt-3 bg-surface-200 dark:bg-surface-700 hover:bg-surface-300 dark:hover:bg-surface-600 text-surface-800 dark:text-surface-200 rounded-lg font-medium transition-colors"
+              >
                 <span>Create Invoice</span>
               </button>
             </div>
@@ -132,18 +144,30 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <h1 className="text-2xl md:text-3xl font-bold mb-6">Invoice Management</h1>
-              <div className="card p-8 flex flex-col items-center justify-center text-center">
-                <div className="w-24 h-24 mb-6 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <InvoicesIcon size={36} />
+              <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl md:text-3xl font-bold">Invoice Management</h1>
+                <div className="flex gap-3">
+                  <Link 
+                    to="/invoices" 
+                    className="button-secondary"
+                  >
+                    View All Invoices
+                  </Link>
+                  <Link
+                    to="/invoices/create"
+                    className="button-primary"
+                  >
+                    <PlusIcon size={18} className="mr-1" />
+                    New Invoice
+                  </Link>
                 </div>
-                <h2 className="text-xl font-semibold mb-2">Invoice Management</h2>
-                <p className="text-surface-600 dark:text-surface-400 mb-6 max-w-md">
-                  Create, send, and track invoices. Get paid faster with automated reminders and online payments.
-                </p>
-                <button className="button-primary" onClick={handleCreateInvoice}>
-                  Create New Invoice
-                </button>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <Link to="/invoices" className="card p-6 hover:shadow-soft transition-shadow">
+                  <h3 className="text-lg font-semibold mb-2">Manage Invoices</h3>
+                  <p className="text-surface-600 dark:text-surface-400 mb-4">View, edit, and track status of all your invoices in one place.</p>
+                </Link>
               </div>
             </motion.div>
           )}

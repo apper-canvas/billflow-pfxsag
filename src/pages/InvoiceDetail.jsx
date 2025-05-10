@@ -296,6 +296,7 @@ const InvoiceDetail = () => {
             )}
           </div>
         </div>
+      </div>
     </div>
   );
 };

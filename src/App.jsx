@@ -113,7 +113,7 @@ function App() {
       >
         <PlusIcon size={20} />
         <span>Create Invoice</span>
-      />
+      </motion.button>
     </div>
   );
 }

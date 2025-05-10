@@ -142,19 +142,12 @@ const Home = () => {
             >
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl md:text-3xl font-bold">Invoice Management</h1>
-                <div className="flex gap-3">
+                <div>
                   <Link 
                     to="/invoices" 
                     className="button-secondary"
                   >
                     View All Invoices
-                  </Link>
-                  <Link
-                    to="/invoices/create"
-                    className="button-primary"
-                  >
-                    <PlusIcon size={18} className="mr-1" />
-                    New Invoice
                   </Link>
                 </div>
               </div>

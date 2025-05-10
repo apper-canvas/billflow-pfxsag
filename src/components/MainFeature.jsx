@@ -273,7 +273,11 @@ const MainFeature = () => {
                   value={formData.dueDate}
                   onChange={handleChange}
                   className="input-field"
+                />
+              </div>
+            </div>
             
+            {/* Currency Selection */}
             {/* Currency Selection */}
             <div>
               <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
@@ -326,9 +330,6 @@ const MainFeature = () => {
                 className="h-4 w-4 rounded border-surface-300 text-primary focus:ring-primary"
               />
               <label htmlFor="reminderEnabled" className="text-surface-700 dark:text-surface-300">Enable payment reminders</label>
-            </div>
-                />
-              </div>
             </div>
           </div>
           

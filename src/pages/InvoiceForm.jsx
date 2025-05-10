@@ -566,10 +566,10 @@ const InvoiceForm = () => {
                     {/* Company Information */}
                     <div className="space-y-4">
                       <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">
-                        Company Information
+                        Company Information</label>
                       <div className="mb-4">
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                          Company Logo
+                          Company Logo</label>
                         </label>
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -618,7 +618,6 @@ const InvoiceForm = () => {
                           </span>
                         </div>
                       </div>
-                      <textarea name="companyAddress" value={formData.companyAddress} onChange={handleChange} className="input-field min-h-20" placeholder="Company Address"></textarea>
                     </div>
                   </div>
                 </div>

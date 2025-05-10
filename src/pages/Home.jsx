@@ -137,7 +137,7 @@ const Home = () => {
           {activeTab === 'invoices' && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.3 }}
             >
               <div className="flex justify-between items-center mb-6">
@@ -145,12 +145,6 @@ const Home = () => {
                 <div>
                   <Link 
                     to="/invoices" 
-                    className="button-secondary"
-                  >
-                    View All Invoices
-                  </Link>
-                </div>
-              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <Link to="/invoices" className="card p-6 hover:shadow-soft transition-shadow">

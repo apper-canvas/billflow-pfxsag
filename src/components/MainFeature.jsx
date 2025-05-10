@@ -54,7 +54,7 @@ const MainFeature = () => {
         </div>
       </div>
       
-
+      <div className="mt-6">
         <h3 className="text-lg font-semibold mb-4">Ready to Create an Invoice?</h3>
         <h3 className="text-lg font-semibold mb-4">Create a Professional Invoice</h3>
           Select your preferred template style above and click the button below to start creating a professional invoice for your clients.

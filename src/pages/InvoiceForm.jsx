@@ -541,35 +541,22 @@ const InvoiceForm = () => {
                     
                     {/* Company Information */}
                     <div className="space-y-4">
-                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
                         Company Information
                       </label>
-                      <input 
-                        type="text" 
-                        name="companyName" 
-                        value={formData.companyName} 
-                        onChange={handleChange} 
-                        className="input-field" 
-                        placeholder="Company Name" 
-                      />
-                      <textarea 
-                        name="companyAddress" 
-                        value={formData.companyAddress} 
-                        onChange={handleChange} 
-                        className="input-field min-h-20" 
-                        placeholder="Company Address"
-                      >
-                      </textarea>
+                      <div>
+                        <input 
+                          type="text" 
+                          name="companyName" 
+                          value={formData.companyName} 
+                          onChange={handleChange} 
+                          className="input-field" 
+                          placeholder="Company Name" 
+                        />
                       </div>
-                    </div>
-                    
-                    {/* Company Information */}
-                    <div className="space-y-4">
-                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">
                         Company Information</label>
                       <div className="mb-4">
-                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                          Company Logo</label>
+                          Company Logo
+                        </label>
                         
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -645,6 +632,14 @@ const InvoiceForm = () => {
                     </span>
                   </button>
                   
+                      <div>
+                        <textarea 
+                          name="companyAddress" 
+                          value={formData.companyAddress} 
+                          onChange={handleChange} 
+                          className="input-field min-h-20" 
+                          placeholder="Company Address"></textarea>
+                      </div>
                   {expandedSection === 'recurring' && (
                     <div className="p-4 border-t border-surface-200 dark:border-surface-700">
                       <div className="flex items-center space-x-2 mb-4">

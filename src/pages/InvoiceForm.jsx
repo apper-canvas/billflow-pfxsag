@@ -541,20 +541,24 @@ const InvoiceForm = () => {
                     
                     {/* Company Information */}
                     <div className="space-y-4">
+                      <h5 className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                         Company Information
-                      </label>
+                      </h5>
                       <div>
+                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
+                          Company Name
+                        </label>
                         <input 
                           type="text" 
                           name="companyName" 
                           value={formData.companyName} 
                           onChange={handleChange} 
                           className="input-field" 
-                          placeholder="Company Name" 
+                          placeholder="Your Company Name" 
                         />
                       </div>
-                        Company Information</label>
                       <div className="mb-4">
+                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                           Company Logo
                         </label>
                         
@@ -587,6 +591,17 @@ const InvoiceForm = () => {
                           </div>
                           {formData.companyLogo && <span className="text-sm text-green-500">Logo uploaded ✓</span>}
                         </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
+                          Company Address
+                        </label>
+                        <textarea 
+                          name="companyAddress" 
+                          value={formData.companyAddress} 
+                          onChange={handleChange} 
+                          className="input-field min-h-20" 
+                          placeholder="Company Address"></textarea>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
@@ -631,15 +646,6 @@ const InvoiceForm = () => {
                       {expandedSection === 'recurring' ? '−' : '+'}
                     </span>
                   </button>
-                  
-                      <div>
-                        <textarea 
-                          name="companyAddress" 
-                          value={formData.companyAddress} 
-                          onChange={handleChange} 
-                          className="input-field min-h-20" 
-                          placeholder="Company Address"></textarea>
-                      </div>
                   {expandedSection === 'recurring' && (
                     <div className="p-4 border-t border-surface-200 dark:border-surface-700">
                       <div className="flex items-center space-x-2 mb-4">

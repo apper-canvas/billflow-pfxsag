@@ -117,7 +117,6 @@ const MainFeature = () => {
         </Link>
       </div>
     </motion.div>
-      </div>
     </motion.div>
   );
 };

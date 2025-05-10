@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MainFeature from '../components/MainFeature';
 import getIcon from '../utils/iconUtils';
@@ -14,6 +14,7 @@ const Home = () => {
   const SettingsIcon = getIcon('Settings');
   const ClockIcon = getIcon('Clock');
   const PlusIcon = getIcon('Plus');
+  const navigate = useNavigate();
   const BellIcon = getIcon('Bell');
   
   const tabs = [
@@ -35,7 +36,8 @@ const Home = () => {
   ];
   
   const handleCreateInvoice = () => {
-    toast.success("Invoice creation mode activated! Complete the form to generate a new invoice.");
+    toast.info("Opening invoice creation form");
+    navigate('/invoices/create');
   };
   
   const ArrowUpIcon = getIcon('ArrowUp');

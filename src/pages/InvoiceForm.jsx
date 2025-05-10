@@ -247,12 +247,21 @@ const InvoiceForm = () => {
     const isClassic = formData.templateStyle === 'classic';
     const isMinimal = formData.templateStyle === 'minimal';
     
-    const templateBg = isModern 
-      ? 'bg-gradient-to-r from-primary to-primary-dark text-white'
-      : isClassic 
-        ? 'bg-surface-100 dark:bg-surface-700 border border-surface-200 dark:border-surface-600'
-        : 'bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-600';
+    // Define template specific styles
+    let templateBg, headerStyle, headerBgStyle = {};
     
+    if (isModern) {
+      templateBg = 'bg-gradient-to-r from-primary to-primary-dark text-white';
+      headerStyle = 'text-white';
+      headerBgStyle = { background: formData.accentColor };
+    } else if (isClassic) {
+      templateBg = 'bg-surface-100 dark:bg-surface-700 border border-surface-200 dark:border-surface-600';
+      headerStyle = 'text-surface-800 dark:text-surface-200';
+    } else { // minimal
+      templateBg = 'bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-600';
+      headerStyle = 'text-surface-800 dark:text-surface-200';
+    }
+
     const headerStyle = isModern
       ? 'text-white'
       : 'text-surface-800 dark:text-surface-200';
@@ -260,7 +269,7 @@ const InvoiceForm = () => {
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowTemplatePreview(false)}>
         <div className="bg-white dark:bg-surface-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>
-          <div className={`p-6 ${templateBg}`} style={isModern ? { background: formData.accentColor } : {}}>
+          <div className={`p-6 ${templateBg}`} style={headerBgStyle}>
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h2 className={`text-xl font-bold ${headerStyle}`}>{formData.companyName || 'Your Company Name'}</h2>
@@ -541,8 +550,8 @@ const InvoiceForm = () => {
                     
                     {/* Company Information */}
                       <div>
-                        <h5 className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                          Company Information
+                        <h5 className="text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
+                         Company Information
                         </h5>
                         <div>
                           <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">

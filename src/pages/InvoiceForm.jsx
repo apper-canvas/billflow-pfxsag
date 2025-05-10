@@ -285,7 +285,6 @@ const InvoiceForm = () => {
             <button className="button-primary w-full" onClick={() => setShowTemplatePreview(false)}>Close Preview</button>
           </div>
       </div>
-      </div>
     );
   };
   

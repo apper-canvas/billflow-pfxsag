@@ -540,8 +540,10 @@ const InvoiceForm = () => {
                     </div>
                     
                     {/* Company Information */}
-                    <div className="space-y-4">
+                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                       <h5 className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
+                      </label>
+                      <div>
                         Company Information
                       </h5>
                       <div>
@@ -604,6 +606,7 @@ const InvoiceForm = () => {
                           placeholder="Company Address"></textarea>
                       </div>
                       <div>
+                        <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                           Accent Color
                         </label>
@@ -619,6 +622,7 @@ const InvoiceForm = () => {
                             {formData.accentColor}
                           </span>
                         </div>
+                      </div>
                       </div>
                     </div>
                   </div>

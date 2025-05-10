@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -22,7 +22,22 @@ const MainFeature = () => {
   const GlobeIcon = getIcon('Globe');
   const ImageIcon = getIcon('Image');
   const navigate = useNavigate();
-  const [templateStyle, setTemplateStyle] = useState('modern');
+  const [templateStyle, setTemplateStyle] = useState(() => {
+    // Initialize from localStorage or default to 'modern'
+    return localStorage.getItem('selectedInvoiceTemplate') || 'modern';
+  });
+  
+  // Update template style in localStorage when changed
+  const handleTemplateChange = (template) => {
+    setTemplateStyle(template);
+    localStorage.setItem('selectedInvoiceTemplate', template);
+    toast.success(`${template.charAt(0).toUpperCase() + template.slice(1)} template selected!`, {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true
+    });
+  };
   
   return (
     <motion.div
@@ -61,7 +76,7 @@ const MainFeature = () => {
       {/* Template Preview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div 
-          className={`card p-4 cursor-pointer transition-all ${templateStyle === 'modern' ? 'ring-2 ring-primary' : 'hover:bg-surface-50 dark:hover:bg-surface-700/50'}`}
+          onClick={() => handleTemplateChange('modern')}
           onClick={() => setTemplateStyle('modern')}
         >
           <div className="h-32 bg-gradient-to-r from-primary to-primary-dark rounded-lg mb-3 flex items-center justify-center text-white">
@@ -76,7 +91,7 @@ const MainFeature = () => {
         
         <div 
           className={`card p-4 cursor-pointer transition-all ${templateStyle === 'classic' ? 'ring-2 ring-primary' : 'hover:bg-surface-50 dark:hover:bg-surface-700/50'}`}
-          onClick={() => setTemplateStyle('classic')}
+          onClick={() => handleTemplateChange('classic')}
         >
           <div className="h-32 bg-surface-100 dark:bg-surface-700 rounded-lg mb-3 flex items-center justify-center border border-surface-200 dark:border-surface-600">
             <span className="font-bold text-surface-800 dark:text-surface-200">Classic Template</span>
@@ -90,7 +105,7 @@ const MainFeature = () => {
         
         <div 
           className={`card p-4 cursor-pointer transition-all ${templateStyle === 'minimal' ? 'ring-2 ring-primary' : 'hover:bg-surface-50 dark:hover:bg-surface-700/50'}`}
-          onClick={() => setTemplateStyle('minimal')}
+          onClick={() => handleTemplateChange('minimal')}
         >
           <div className="h-32 bg-white dark:bg-surface-800 rounded-lg mb-3 flex items-center justify-center border border-surface-200 dark:border-surface-600">
             <span className="font-bold text-surface-800 dark:text-surface-200">Minimal Template</span>

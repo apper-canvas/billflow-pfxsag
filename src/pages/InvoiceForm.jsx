@@ -78,7 +78,7 @@ const InvoiceForm = () => {
     reminders: [7], // Default to 7 days before due date
     
     // Template customization
-    templateStyle: 'modern',
+    templateStyle: localStorage.getItem('selectedInvoiceTemplate') || 'modern',
     companyName: '',
     companyLogo: '',
     companyAddress: '',
@@ -243,24 +243,26 @@ const InvoiceForm = () => {
   
   // Template preview component
   const TemplatePreview = () => {
-    const isModern = formData.templateStyle === 'modern';
-    const isClassic = formData.templateStyle === 'classic';
-    const isMinimal = formData.templateStyle === 'minimal';
-    
     // Define template specific styles
     let templateBg = '';
-    let headerBgStyle = {};
     let headerStyle = '';
+    let headerBgStyle = {};
     
-    if (isModern) {
+    if (formData.templateStyle === 'modern') {
       templateBg = 'bg-gradient-to-r from-primary to-primary-dark text-white';
       headerStyle = 'text-white';
+      // Modern template uses accent color for header background
       headerBgStyle = { background: formData.accentColor };
     } else if (isClassic) {
       templateBg = 'bg-surface-100 dark:bg-surface-700 border border-surface-200 dark:border-surface-600';
       headerStyle = 'text-surface-800 dark:text-surface-200';
     } else { // minimal
       templateBg = 'bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-600';
+      headerStyle = 'text-surface-800 dark:text-surface-200';
+    }
+    
+    if (formData.templateStyle === 'classic') {
+      templateBg = 'bg-surface-100 dark:bg-surface-700 border border-surface-200 dark:border-surface-600';
       headerStyle = 'text-surface-800 dark:text-surface-200';
     }
     
@@ -281,7 +283,7 @@ const InvoiceForm = () => {
                     LOGO
                   </div>
                 ) : (
-                  <ImageIcon size={24} className={isModern ? 'text-white/60' : 'text-surface-400'} />
+                  <ImageIcon size={24} className={formData.templateStyle === 'modern' ? 'text-white/60' : 'text-surface-400'} />
                 )}
               </div>
             </div>

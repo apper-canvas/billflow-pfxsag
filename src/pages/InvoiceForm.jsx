@@ -243,13 +243,17 @@ const InvoiceForm = () => {
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowTemplatePreview(false)}>
         <div className="bg-white dark:bg-surface-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>
+        <div 
+          className="bg-white dark:bg-surface-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-auto" 
+          onClick={e => e.stopPropagation()}
+        >
           <div className={`p-6 ${templateBg}`} style={headerBgStyle}>
             <div className="flex justify-between items-start mb-6">
               <div>
                 <p className='text-white/80'>
                   {formData.companyAddress || '123 Business Street, City, Country'}
                 </p>
-              </div>
+              <div className="w-16 h-16 bg-white/20 rounded flex items-center justify-center overflow-hidden">
               <div className="w-16 h-16 bg-white/20 rounded flex items-center justify-center overflow-hidden">
                 {formData.companyLogo ? (
                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xs font-bold text-surface-800">
@@ -273,7 +277,7 @@ const InvoiceForm = () => {
                   <p className="font-medium">Due Date:</p>
                   <p className="text-sm text-surface-600 dark:text-surface-400">{formData.dueDate || '2023-05-01'}</p>
                 </div>
-              </div>
+            </div>
               <div className="mt-8">
                 <p className="font-medium mb-1">Bill To:</p>
                 <p>{formData.clientName || 'Client Name'}</p>
@@ -281,12 +285,10 @@ const InvoiceForm = () => {
                 <p className="text-sm text-surface-600 dark:text-surface-400">{formData.clientAddress || 'Client Address'}</p>
               </div>
             </div>
-              <p className="text-surface-600 dark:text-surface-400 mb-4">This is a preview of your invoice</p>
-              <p className="text-surface-600 dark:text-surface-400 mb-4">This is a preview of your selected template style</p>
-              <button className="button-primary w-full" onClick={() => setShowTemplatePreview(false)}>Close Preview</button>
-            </div>
+            <p className="text-surface-600 dark:text-surface-400 mb-4">This is a preview of your invoice</p>
+            <p className="text-surface-600 dark:text-surface-400 mb-4">This is a preview of your selected template style</p>
+            <button className="button-primary w-full" onClick={() => setShowTemplatePreview(false)}>Close Preview</button>
           </div>
-        </div>
       </div>
     );
   };

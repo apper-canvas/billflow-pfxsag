@@ -222,7 +222,7 @@ const InvoiceDetail = () => {
           <div className="p-6">
             {/* Client and Invoice Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div>
+              <div className="space-y-2">
                 <h3 className="text-sm font-medium text-surface-500 uppercase tracking-wide mb-2">Bill To</h3>
                 <p className="font-medium text-lg">{invoice.client.name}</p>
                 <p className="text-surface-600 dark:text-surface-400">{invoice.client.email}</p>
@@ -242,8 +242,60 @@ const InvoiceDetail = () => {
                 </div>
               </div>
             </div>
+            
+            {/* Invoice Items */}
+            <div className="mb-8">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="border-b border-surface-200 dark:border-surface-700">
+                    <th className="pb-3 font-medium text-surface-500">Description</th>
+                    <th className="pb-3 font-medium text-surface-500 text-right">Quantity</th>
+                    <th className="pb-3 font-medium text-surface-500 text-right">Rate</th>
+                    <th className="pb-3 font-medium text-surface-500 text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {invoice.items.map((item, index) => (
+                    <tr key={index} className="border-b border-surface-200 dark:border-surface-700">
+                      <td className="py-3">{item.description}</td>
+                      <td className="py-3 text-right">{item.quantity}</td>
+                      <td className="py-3 text-right">{invoice.currency} {item.rate.toFixed(2)}</td>
+                      <td className="py-3 text-right">{invoice.currency} {(item.quantity * item.rate).toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            
+            {/* Invoice Totals */}
+            <div className="flex justify-end mb-8">
+              <div className="w-full md:w-1/2 lg:w-1/3">
+                <div className="space-y-1">
+                  <div className="flex justify-between py-1">
+                    <span className="text-surface-500">Subtotal:</span>
+                    <span>{invoice.currency} {totals.subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-surface-500">GST ({invoice.taxRate}%):</span>
+                    <span>{invoice.currency} {totals.tax.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-t border-surface-200 dark:border-surface-700 font-medium text-lg mt-2 pt-2">
+                    <span>Total:</span>
+                    <span>{invoice.currency} {totals.total.toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Notes */}
+            {invoice.notes && (
+              <div className="border-t border-surface-200 dark:border-surface-700 pt-4 mt-8">
+                <h3 className="text-sm font-medium text-surface-500 uppercase tracking-wide mb-2">Notes</h3>
+                <p className="text-surface-600 dark:text-surface-400">{invoice.notes}</p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
     </div>
   );
 };

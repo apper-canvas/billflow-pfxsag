@@ -540,14 +540,12 @@ const InvoiceForm = () => {
                     </div>
                     
                     {/* Company Information */}
-                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                      <h5 className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                      </label>
                       <div>
-                        Company Information
-                      </h5>
-                      <div>
-                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
+                        <h5 className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
+                          Company Information
+                        </h5>
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                           Company Name
                         </label>
                         <input 
